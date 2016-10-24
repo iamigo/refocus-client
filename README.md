@@ -9,7 +9,7 @@ If you want to build a Node application which communicates with Refocus using th
 
 ```
 /**
- * Insert or updates the sample.
+ * Inserts or updates the sample.
  *
  * @param {Object} sample - The sample to upsert.
  * @returns {Promise} - A promise which resolves to the http response. When successful, the response will contain the upserted sample.
@@ -72,6 +72,10 @@ getAspect(name)
 getAspects()
 
 ```
+
+> **TODO**
+>
+> We can add coverage for more of the API later but these should be the basic ones right out of the gate
 
 # Examples
 
