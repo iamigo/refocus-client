@@ -1,7 +1,12 @@
 # refocus-client
 
+Read on if you're building a Node.js application which uses the Refocus API.
+
+> **TODO**
+>
+> We should make this an npm package so it's super-easy to install and build off of.
+
 ## Install
-If you want to build a Node application which communicates with Refocus using the Refocus API, just install the npm package like this:
 
 `npm install refocus-client --save`
 
