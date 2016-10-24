@@ -1,0 +1,28 @@
+{
+  "name": "refocus-client",
+  "version": "1.0.0",
+  "description": "REST API wrapper for Refocus",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/_mocha --reporter list --recursive ./test/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iamigo/refocus-client.git"
+  },
+  "keywords": [
+    "Refocus"
+  ],
+  "author": "Ian Goldstein",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iamigo/refocus-client/issues"
+  },
+  "homepage": "https://github.com/iamigo/refocus-client#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2"
+  },
+  "dependencies": {
+  }
+}
