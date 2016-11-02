@@ -1,10 +1,6 @@
 # refocus-client
 
-Read on if you're building a Node.js application which uses the Refocus API.
-
-> **TODO**
->
-> We should make this an npm package so it's super-easy to install and build off of.
+Interact with the Refocus API. Works with Bluebird promises.
 
 ## Install
 
@@ -12,216 +8,133 @@ Read on if you're building a Node.js application which uses the Refocus API.
 
 # API
 
-```
-/**
- * Inserts or updates the sample.
- *
- * @param {Object} sample - The sample to upsert.
- * @returns {Promise} - A promise which resolves to the http response. When successful, the response will contain the upserted sample.
- */
-upsertSample(sample)
+## Subjects
 
-/**
- * Inserts or updates the samples asynchronously.
- *
- * @param {Object} arr - The array of samples to upsert.
- * @returns {Promise} - A promise which resolves to the http response. When successful, the response will contain a status OK.
- */
-bulkUpsertSamples(arr)
+### `getSubjects()` => `Promise`
 
-/**
- * Creates a new subject as the child of the specified parent subject.
- *
- * @param {String} parentAbsolutePath - The absolutePath of the new subject's parent.
- * @param {Object} newSubject - The new subject to create.
- * @returns {Promise} - A promise which resolves to the http response. When successful, the response will contain the new subject.
- */
-addChildSubject(parentAbsolutePath, newSubject)
+Retrieve all Subjects.
 
-/**
- * Retrieves the specified subject.
- *
- * @param {Object} absolutePath - The absolutePath of the subject to retrieve
- * @returns {Promise} - A promise which resolves to the http response. When successful, the response will contain the subject.
- */
-getSubject(absolutePath)
+Returns a Bluebird `Promise` which resolves to an array of Subjects.
 
-/**
- * Retrieves all subjects.
- *
- * @returns {Promise} - A promise which resolves to the http response. When successful, the response will contain an array of subjects.
- */
-getSubjects()
 
-/**
- * Creates a new aspect.
- *
- * @param {Object} sample - The sample to upsert. Must have name and value string properties.
- * @returns {Promise} - A promise which resolves to the http response. When successful, the response will contain the newly created aspect.
- */
-addAspect(aspect)
+### `getSubject(absolutePath)` => `Promise`
 
-/**
- * Retrieves the specified aspect.
- *
- * @param {Object} name - The name of the aspect to retrieve.
- * @returns {Promise} - A promise which resolves to the http response. When successful, the response will contain the aspect.
- */
-getAspect(name)
+Retrieve the specified Subject.
 
-/**
- * Retrieves all aspects.
- *
- * @returns {Promise} - A promise which resolves to the http response. When successful, the response will contain as array of aspects.
- */
-getAspects()
+| Param | Type | Description |
+| --- | --- | --- |
+| absolutePath | `String` | The absolutePath of the Subject to retrieve. |
 
-```
+Returns a Bluebird `Promise` which resolves to the specified Subject.
 
-> **TODO**
->
-> We can add coverage for more of the API later but these should be the basic ones right out of the gate
 
-# Examples
+### `addChildSubject(parentAbsolutePath, newSubject) => `Promise`
 
-## Send a Sample
+Create a new Subject as a child of the specified parent Subject.
 
-```
-const refocusClient = require('refocus-client')('https://refocus-sandbox.herokuapp.com', 'v1', 'skqjkbqkjnq9n34jn3jk3fjnwefwefwef34');
+| Param | Type | Description |
+| --- | --- | --- |
+| parentAbsolutePath | `String` | The absolutePath of the new Subject's parent. |
+| newSubject | `Object` | The new Subject to create. |
 
-refocusClient.upsertSample({
-  name: 'Salesforce.Chicago|AvgPageTime',
-  value: '100',
-})
-.then((res) => {
-  // got status 1xx, 2xx, 3xx
-  // do something with the sample returned
-})
-.catch((err) => {
-  // either the sample object didn't look like a sample (e.g. missing required
-  // field) OR got status 4xx, 5xx
-});
-```
+Returns a Bluebird `Promise` which resolves to the newly created Subject.
 
-## Send Multiple Samples
 
-```
-const refocusClient = require('refocus-client')('https://refocus-sandbox.herokuapp.com', 'v1', 'skqjkbqkjnq9n34jn3jk3fjnwefwefwef34');
+### `addRootSubject(newSubject)` => `Promise`
 
-refocusClient.bulkUpsertSamples([{
-  name: 'Salesforce.Chicago|AvgPageTime',
-  value: '103',
-}, {
-  name: 'Salesforce.Denver|AvgPageTime',
-  value: '378',
-  messageCode: 'SLOW',
-  messageBody: 'This is too slow. Must investigate if average page time stays this high.',
-}, {
-  name: 'Salesforce.Vancouver|AvgPageTime',
-  value: '88',
-}])
-.then((res) => {
-  // got status 1xx, 2xx, 3xx
-})
-.catch((err) => {
-  // got status 4xx, 5xx
-});
-```
+Create a new root Subject.
 
-## Create a New Child Subject
+| Param | Type | Description |
+| --- | --- | --- |
+| newSubject | `String` | The new Subject to create. |
 
-```
-const refocusClient = require('refocus-client')('https://refocus-sandbox.herokuapp.com', 'v1', 'skqjkbqkjnq9n34jn3jk3fjnwefwefwef34');
+Returns a Bluebird `Promise` which resolves to the newly created Subject.
 
-refocusClient.addChildSubject('Salesforce', {
-  name: 'Tokyo',
-  description: '...',
-  isPublished: true,
-})
-.then((res) => {
-  // got status 1xx, 2xx, 3xx
-  // do something with the new subject returned
-})
-.catch((err) => {
-  // got status 4xx, 5xx
-});
-```
 
-## Get a Subject
+### `patchSubject(absolutePath, subject)` => `Promise`
 
-```
-const refocusClient = require('refocus-client')('https://refocus-sandbox.herokuapp.com', 'v1', 'skqjkbqkjnq9n34jn3jk3fjnwefwefwef34');
+Update a Subject, modifying only the attributes you provide.
 
-refocusClient.getSubject('Salesforce.Denver')
-.then((res) => {
-  // got status 1xx, 2xx, 3xx
-  // do something with the subject returned
-})
-.catch((err) => {
-  // got status 4xx, 5xx
-});
-```
+| Param | Type | Description |
+| --- | --- | --- |
+| absolutePath | `String` | The absolutePath of the Subject to patch. |
+| subject | `Object` | An object containing the attributes you want to update. |
 
-## Get All Subjects
+Returns a Bluebird `Promise` which resolves to the patched Subject.
 
-```
-const refocusClient = require('refocus-client')('https://refocus-sandbox.herokuapp.com', 'v1', 'skqjkbqkjnq9n34jn3jk3fjnwefwefwef34');
 
-refocusClient.getSubjects()
-.then((res) => {
-  // got status 1xx, 2xx, 3xx
-  // do something with the array of subjects returned
-})
-.catch((err) => {
-  // got status 4xx, 5xx
-});
-```
+### `deleteSubject(absolutePath)` => `Promise`
 
-## Create a New Aspect
+Delete the specified Subject.
 
-```
-const refocusClient = require('refocus-client')('https://refocus-sandbox.herokuapp.com', 'v1', 'skqjkbqkjnq9n34jn3jk3fjnwefwefwef34');
+| Param | Type | Description |
+| --- | --- | --- |
+| absolutePath | `String` | The absolutePath of the Subject to delete. |
 
-refocusClient.addAspect({
-  name: 'LoginErrors',
-  description: '...',
-  isPublished: true,
-  timeout: '60s',
-})
-.then((res) => {
-  // got status 1xx, 2xx, 3xx
-  // do something with the new aspect returned
-})
-.catch((err) => {
-  // got status 4xx, 5xx
-});
-```
+Returns a Bluebird `Promise` which resolves to the deleted Subject.
 
-## Get an Aspect
 
-```
-const refocusClient = require('refocus-client')('https://refocus-sandbox.herokuapp.com', 'v1', 'skqjkbqkjnq9n34jn3jk3fjnwefwefwef34');
+## Aspects
 
-refocusClient.getAspect('AvgPageTime')
-.then((res) => {
-  // got status 1xx, 2xx, 3xx
-  // do something with the aspect returned
-})
-.catch((err) => {
-  // got status 4xx, 5xx
-});
-```
-## Get All Aspects
+### `getAspects()` => `Promise`
 
-```
-const refocusClient = require('refocus-client')('https://refocus-sandbox.herokuapp.com', 'v1', 'skqjkbqkjnq9n34jn3jk3fjnwefwefwef34');
+Retrieve all Aspects.
 
-refocusClient.getAspects()
-.then((res) => {
-  // got status 1xx, 2xx, 3xx
-  // do something with the array of aspects returned
-})
-.catch((err) => {
-  // got status 4xx, 5xx
-});
-```
+Returns a Bluebird `Promise` which resolves to an array of Aspects.
+
+
+### `getAspect(name)` => `Promise`
+
+Retrieve the specified Aspect.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | `String` | The name of the Aspect to retrieve. |
+
+Returns a Bluebird `Promise` which resolves to the specified Aspect.
+
+
+### `addAspect(aspect)` => `Promise`
+
+Create a new Aspect.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| aspect | `Object` | The Aspect to create. |
+
+Returns a Bluebird `Promise` which resolves to the newly created Aspect.
+
+
+### `patchAspect(name, aspect)` => `Promise`
+
+Update an Aspect, modifying only the attributes you provide.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | `String` | The name of the Aspect to patch. |
+| aspect | `Object` | An object containing the attributes you want to update. |
+
+Returns a Bluebird `Promise` which resolves to the patched Aspect.
+
+
+### `deleteAspect(name)` => `Promise`
+
+Delete the specified Aspect.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| name | `String` | The name of the aspect to delete. |
+
+Returns`Promise` | A promise which resolves to the deleted aspect.
+
+
+## Samples
+
+### `bulkUpsertSamples(arr)` => `Promise`
+Insert or update an array of Samples asynchronously.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| arr | `Array` | The array of Samples to upsert. |
+
+Returns a Bluebird `Promise` which resolves to the status OK.
