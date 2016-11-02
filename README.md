@@ -28,7 +28,7 @@ Retrieve the specified Subject.
 Returns a Bluebird `Promise` which resolves to the specified Subject.
 
 
-### `addChildSubject(parentAbsolutePath, newSubject) => `Promise`
+### `addChildSubject(parentAbsolutePath, newSubject)` => `Promise`
 
 Create a new Subject as a child of the specified parent Subject.
 
