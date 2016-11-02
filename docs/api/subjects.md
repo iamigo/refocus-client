@@ -1,10 +1,10 @@
 # Subjects API
 
 - [addChildSubject](#addchildsubject)
-- [addRootSubject](#addRootSubject)
-- [deleteSubject](#deleteSubject)
-- [getSubject](#getSubject)
-- [getSubjects](#getSubjects)
+- [addRootSubject](#addrootsubject)
+- [deleteSubject](#deletesubject)
+- [getSubject](#getsubject)
+- [getSubjects](#getsubjects)
 - [patchSubject](#patchsubject)
 
 
@@ -65,7 +65,8 @@ Retrieve all Subjects.
 Returns a Bluebird `Promise` which resolves to an array of Subjects.
 
 
-### `patchSubject(absolutePath, subject)` => `Promise`
+## patchSubject
+`patchSubject(absolutePath, subject)` => `Promise`
 
 Update a Subject, modifying only the attributes you provide.
 
