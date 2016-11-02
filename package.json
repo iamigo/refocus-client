@@ -1,6 +1,6 @@
 {
   "name": "refocus-client",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "description": "REST API wrapper for Refocus",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "REST",
     "API"
   ],
-  "author": "Ian Goldstein",
+  "author": "Ian Goldstein <ianmgoldstein@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/iamigo/refocus-client/issues"
