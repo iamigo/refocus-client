@@ -1,6 +1,10 @@
 # Samples API
 
-#### `bulkUpsertSamples(arr)` => `Promise`
+- [bulkUpsertSamples](#bulkupsertsamples)
+
+
+## bulkUpsertSamples
+`bulkUpsertSamples(arr)` => `Promise`
 
 Insert or update an array of Samples asynchronously.
 
