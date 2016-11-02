@@ -9,7 +9,7 @@ Interact with the Refocus API using `refocus-client` and Bluebird promises.
 ## Usage
 
 ```
-const RefocusClient = require('../index');
+const RefocusClient = require('refocus-client');
 
 // Some configuration
 const refocusUrl = 'http://localhost:3000'; // The URL where Refocus is running
