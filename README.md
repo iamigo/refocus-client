@@ -6,17 +6,52 @@ Interact with the Refocus API using `refocus-client` and Bluebird promises.
 
 `npm install refocus-client --save`
 
-# API
+## Usage
 
-## Subjects
+```
+const RefocusClient = require('../index');
 
-### `getSubjects()` => `Promise`
+// Some configuration
+const refocusUrl = 'http://localhost:3000'; // The URL where Refocus is running
+const apiVersion = 'v1'; // The Refocus API version
+const token = 'skqjkbqkjnq9n34jn3jk3fjnwefwefwef34'; // Your API token
+
+// Instantiate the RefocusClient.
+const rc = new RefocusClient(refocusUrl, apiVersion, token);
+
+// Now use the RefocusClient API. For example, here we create a new Aspect:
+rc.addAspect({
+  name: 'Latency',
+  isPublished: true,
+  timeout: '5m',
+  valueType: 'NUMERIC',
+  valueLabel: 'ms',
+  criticalRange: [500, 999999999999],
+  warningRange: [300, 500],
+  infoRange: [200, 300],
+  okRange: [0, 200],
+})
+.then((asp) => {
+  // Do something else now that the aspect has been created?
+  console.log(`Created "${asp.name}"`);
+})
+.catch((err) => {
+  // Handle errors...
+  console.log('Uh oh!', err);
+});
+```
+
+## API
+
+### Subjects
+
+#### `getSubjects()` => `Promise`
 
 Retrieve all Subjects.
 
 Returns a Bluebird `Promise` which resolves to an array of Subjects.
 
-### `getSubject(absolutePath)` => `Promise`
+#### `getSubject(absolutePath)` => `Promise`
 
 Retrieve the specified Subject.
 
@@ -26,7 +61,7 @@ Retrieve the specified Subject.
 
 Returns a Bluebird `Promise` which resolves to the specified Subject.
 
-### `addChildSubject(parentAbsolutePath, newSubject)` => `Promise`
+#### `addChildSubject(parentAbsolutePath, newSubject)` => `Promise`
 
 Create a new Subject as a child of the specified parent Subject.
 
@@ -58,7 +93,7 @@ Update a Subject, modifying only the attributes you provide.
 
 Returns a Bluebird `Promise` which resolves to the patched Subject.
 
-### `deleteSubject(absolutePath)` => `Promise`
+#### `deleteSubject(absolutePath)` => `Promise`
 
 Delete the specified Subject.
 
@@ -68,15 +103,15 @@ Delete the specified Subject.
 
 Returns a Bluebird `Promise` which resolves to the deleted Subject.
 
-## Aspects
+### Aspects
 
-### `getAspects()` => `Promise`
+#### `getAspects()` => `Promise`
 
 Retrieve all Aspects.
 
 Returns a Bluebird `Promise` which resolves to an array of Aspects.
 
-### `getAspect(name)` => `Promise`
+#### `getAspect(name)` => `Promise`
 
 Retrieve the specified Aspect.
 
@@ -86,7 +121,7 @@ Retrieve the specified Aspect.
 
 Returns a Bluebird `Promise` which resolves to the specified Aspect.
 
-### `addAspect(aspect)` => `Promise`
+#### `addAspect(aspect)` => `Promise`
 
 Create a new Aspect.
 
@@ -96,7 +131,7 @@ Create a new Aspect.
 
 Returns a Bluebird `Promise` which resolves to the newly created Aspect.
 
-### `patchAspect(name, aspect)` => `Promise`
+#### `patchAspect(name, aspect)` => `Promise`
 
 Update an Aspect, modifying only the attributes you provide.
 
@@ -107,7 +142,7 @@ Update an Aspect, modifying only the attributes you provide.
 
 Returns a Bluebird `Promise` which resolves to the patched Aspect.
 
-### `deleteAspect(name)` => `Promise`
+#### `deleteAspect(name)` => `Promise`
 
 Delete the specified Aspect.
 
@@ -117,9 +152,9 @@ Delete the specified Aspect.
 
 Returns`Promise` | A promise which resolves to the deleted aspect.
 
-## Samples
+### Samples
 
-### `bulkUpsertSamples(arr)` => `Promise`
+#### `bulkUpsertSamples(arr)` => `Promise`
 Insert or update an array of Samples asynchronously.
 
 | Param | Type | Description |
