@@ -1,6 +1,6 @@
 # refocus-client
 
-Interact with the Refocus API using `refocus-client` and Bluebird promises.
+Interact with the [Refocus](https://github.com/salesforce/refocus) API using `refocus-client` and Bluebird promises.
 
 ## Install
 
