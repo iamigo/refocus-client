@@ -1,6 +1,6 @@
 # refocus-client
 
-Interact with the Refocus API. Works with Bluebird promises.
+Interact with the Refocus API using `refocus-client` and Bluebird promises.
 
 ## Install
 
@@ -16,7 +16,6 @@ Retrieve all Subjects.
 
 Returns a Bluebird `Promise` which resolves to an array of Subjects.
 
-
 ### `getSubject(absolutePath)` => `Promise`
 
 Retrieve the specified Subject.
@@ -26,7 +25,6 @@ Retrieve the specified Subject.
 | absolutePath | `String` | The absolutePath of the Subject to retrieve. |
 
 Returns a Bluebird `Promise` which resolves to the specified Subject.
-
 
 ### `addChildSubject(parentAbsolutePath, newSubject)` => `Promise`
 
@@ -39,7 +37,6 @@ Create a new Subject as a child of the specified parent Subject.
 
 Returns a Bluebird `Promise` which resolves to the newly created Subject.
 
-
 ### `addRootSubject(newSubject)` => `Promise`
 
 Create a new root Subject.
@@ -49,7 +46,6 @@ Create a new root Subject.
 | newSubject | `String` | The new Subject to create. |
 
 Returns a Bluebird `Promise` which resolves to the newly created Subject.
-
 
 ### `patchSubject(absolutePath, subject)` => `Promise`
 
@@ -62,7 +58,6 @@ Update a Subject, modifying only the attributes you provide.
 
 Returns a Bluebird `Promise` which resolves to the patched Subject.
 
-
 ### `deleteSubject(absolutePath)` => `Promise`
 
 Delete the specified Subject.
@@ -73,7 +68,6 @@ Delete the specified Subject.
 
 Returns a Bluebird `Promise` which resolves to the deleted Subject.
 
-
 ## Aspects
 
 ### `getAspects()` => `Promise`
@@ -81,7 +75,6 @@ Returns a Bluebird `Promise` which resolves to the deleted Subject.
 Retrieve all Aspects.
 
 Returns a Bluebird `Promise` which resolves to an array of Aspects.
-
 
 ### `getAspect(name)` => `Promise`
 
@@ -93,7 +86,6 @@ Retrieve the specified Aspect.
 
 Returns a Bluebird `Promise` which resolves to the specified Aspect.
 
-
 ### `addAspect(aspect)` => `Promise`
 
 Create a new Aspect.
@@ -103,7 +95,6 @@ Create a new Aspect.
 | aspect | `Object` | The Aspect to create. |
 
 Returns a Bluebird `Promise` which resolves to the newly created Aspect.
-
 
 ### `patchAspect(name, aspect)` => `Promise`
 
@@ -116,7 +107,6 @@ Update an Aspect, modifying only the attributes you provide.
 
 Returns a Bluebird `Promise` which resolves to the patched Aspect.
 
-
 ### `deleteAspect(name)` => `Promise`
 
 Delete the specified Aspect.
@@ -126,7 +116,6 @@ Delete the specified Aspect.
 | name | `String` | The name of the aspect to delete. |
 
 Returns`Promise` | A promise which resolves to the deleted aspect.
-
 
 ## Samples
 
