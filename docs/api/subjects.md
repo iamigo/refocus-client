@@ -1,11 +1,11 @@
 # Subjects API
 
-- [addChildSubject](addChildSubject)
-- [addRootSubject](addRootSubject)
-- [deleteSubject](deleteSubject)
-- [getSubject](getSubject)
-- [getSubjects](getSubjects)
-- [patchSubject](patchSubject)
+- [addChildSubject](#addChildSubject)
+- [addRootSubject](#addRootSubject)
+- [deleteSubject](#deleteSubject)
+- [getSubject](#getSubject)
+- [getSubjects](#getSubjects)
+- [patchSubject](#patchSubject)
 
 
 ## addChildSubject
