@@ -4,7 +4,8 @@
   "description": "REST API wrapper for Refocus",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/_mocha --reporter list --recursive ./test/**/*.js"
+    "test-local": "./node_modules/mocha/bin/_mocha --reporter list --recursive ./test/**/*.js",
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
@@ -23,7 +24,9 @@
   "homepage": "https://github.com/iamigo/refocus-client#readme",
   "devDependencies": {
     "chai": "^3.5.0",
-    "mocha": "^3.1.2"
+    "coveralls": "^2.11.14",
+    "mocha": "^3.1.2",
+    "mocha-lcov-reporter": "^1.2.0"
   },
   "dependencies": {
     "request": "^2.76.0",
