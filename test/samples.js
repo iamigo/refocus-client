@@ -14,6 +14,7 @@ describe('samples', () => {
     .catch((err) => {
       const opts = err.options;
       expect(opts).to.have.property('body').to.have.length(3);
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'POST');
       expect(opts.resolveWithFullResponse).to.be.false;

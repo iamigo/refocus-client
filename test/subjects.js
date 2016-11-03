@@ -9,6 +9,7 @@ describe('subjects', () => {
     .then((res) => done('Uh oh'))
     .catch((err) => {
       const opts = err.options;
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'GET');
       expect(opts.resolveWithFullResponse).to.be.false;
@@ -25,6 +26,7 @@ describe('subjects', () => {
     .then((res) => done('Uh oh'))
     .catch((err) => {
       const opts = err.options;
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'GET');
       expect(opts.resolveWithFullResponse).to.be.false;
@@ -42,6 +44,7 @@ describe('subjects', () => {
     .catch((err) => {
       const opts = err.options;
       expect(opts.body).to.have.property('name', 'd');
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'POST');
       expect(opts.resolveWithFullResponse).to.be.false;
@@ -59,6 +62,7 @@ describe('subjects', () => {
     .catch((err) => {
       const opts = err.options;
       expect(opts.body).to.have.property('name', 'd');
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'POST');
       expect(opts.resolveWithFullResponse).to.be.false;
@@ -76,6 +80,7 @@ describe('subjects', () => {
     .catch((err) => {
       const opts = err.options;
       expect(opts.body).to.have.property('description', 'Lorem ipsum dolor');
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'PATCH');
       expect(opts.resolveWithFullResponse).to.be.false;
@@ -92,6 +97,7 @@ describe('subjects', () => {
     .then((res) => done('Uh oh'))
     .catch((err) => {
       const opts = err.options;
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'DELETE');
       expect(opts.resolveWithFullResponse).to.be.false;

@@ -9,6 +9,7 @@ describe('aspects', () => {
     .then((res) => done('Uh oh'))
     .catch((err) => {
       const opts = err.options;
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'GET');
       expect(opts.resolveWithFullResponse).to.be.false;
@@ -25,6 +26,7 @@ describe('aspects', () => {
     .then((res) => done('Uh oh'))
     .catch((err) => {
       const opts = err.options;
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'GET');
       expect(opts.resolveWithFullResponse).to.be.false;
@@ -43,6 +45,7 @@ describe('aspects', () => {
       const opts = err.options;
       expect(opts.body).to.have.property('name', 'b');
       expect(opts.body).to.have.property('timeout', '10s');
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'POST');
       expect(opts.resolveWithFullResponse).to.be.false;
@@ -60,6 +63,7 @@ describe('aspects', () => {
     .catch((err) => {
       const opts = err.options;
       expect(opts.body).to.have.property('description', 'Lorem ipsum dolor');
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'PATCH');
       expect(opts.resolveWithFullResponse).to.be.false;
@@ -76,6 +80,7 @@ describe('aspects', () => {
     .then((res) => done('Uh oh'))
     .catch((err) => {
       const opts = err.options;
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
       expect(opts.json).to.be.true;
       expect(opts).to.have.property('method', 'DELETE');
       expect(opts.resolveWithFullResponse).to.be.false;

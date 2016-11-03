@@ -1,9 +1,117 @@
 /**
  * refocus-client entry point
  */
-
-// Module Dependencies
 const rp = require('request-promise');
+
+/**
+ * Wrapper around request-promise-native package for GET requests.
+ *
+ * @param {string} resource - The Refocus API endpoint for the resource
+ *  requested.
+ * @returns {Promise} A promise which resolves to the object or array
+ *  requested.
+ */
+function _get(token, resource) {
+  const opts = {
+    headers: {
+      Authorization: token,
+    },
+    json: true,
+    method: 'GET',
+    resolveWithFullResponse: false,
+    simple: false,
+    uri: resource,
+  };
+
+  return new Promise((resolve, reject) => {
+    rp(opts)
+    .then(resolve)
+    .catch(reject);
+  });
+} // _get
+
+/**
+ * Wrapper around request-promise-native package for POST requests.
+ *
+ * @param {string} resource - The Refocus API endpoint for the resource being
+ *  created.
+ * @param {object} payload - The payload for the HTTP POST request.
+ * @returns {Promise} A promise which resolves to the resource created.
+ */
+function _post(token, resource, payload) {
+  const opts = {
+    body: payload,
+    headers: {
+      Authorization: token,
+    },
+    json: true,
+    method: 'POST',
+    resolveWithFullResponse: false,
+    simple: false,
+    uri: resource,
+  };
+
+  return new Promise((resolve, reject) => {
+    rp(opts)
+    .then(resolve)
+    .catch(reject);
+  });
+} // _post
+
+/**
+ * Wrapper around request-promise-native package for POST requests.
+ *
+ * @param {string} resource - The Refocus API endpoint for the resource being
+ *  created.
+ * @param {object} payload - The payload for the HTTP POST request.
+ * @returns {Promise} A promise which resolves to the resource created.
+ */
+function _patch(token, resource, payload) {
+  const opts = {
+    body: payload,
+    headers: {
+      Authorization: token,
+    },
+    json: true,
+    method: 'PATCH',
+    resolveWithFullResponse: false,
+    simple: false,
+    uri: resource,
+  };
+
+  return new Promise((resolve, reject) => {
+    rp(opts)
+    .then(resolve)
+    .catch(reject);
+  });
+} // _patch
+
+/**
+ * Wrapper around request-promise-native package for POST requests.
+ *
+ * @param {string} resource - The Refocus API endpoint for the resource being
+ *  created.
+ * @param {object} payload - The payload for the HTTP POST request.
+ * @returns {Promise} A promise which resolves to the resource deleted.
+ */
+function _delete(token, resource) {
+  const opts = {
+    headers: {
+      Authorization: token,
+    },
+    json: true,
+    method: 'DELETE',
+    resolveWithFullResponse: false,
+    simple: false,
+    uri: resource,
+  };
+
+  return new Promise((resolve, reject) => {
+    rp(opts)
+    .then(resolve)
+    .catch(reject);
+  });
+} // _delete
 
 /**
  * RefocusClient wraps some basic Refocus API functionality.
@@ -25,108 +133,6 @@ class RefocusClient {
   } // constructor
 
   // --------------------------------------------------------------------------
-  // A couple of helper functions...
-  // --------------------------------------------------------------------------
-
-  /**
-   * Wrapper around request-promise-native package for GET requests.
-   *
-   * @param {string} resource - The Refocus API endpoint for the resource
-   *  requested.
-   * @returns {Promise} A promise which resolves to the object or array
-   *  requested.
-   */
-  _get(resource) {
-    const opts = {
-      json: true,
-      method: 'GET',
-      resolveWithFullResponse: false,
-      simple: false,
-      uri: `${this.url}/${this.version}/${resource}`,
-    };
-
-    return new Promise((resolve, reject) => {
-      rp(opts)
-      .then(resolve)
-      .catch(reject);
-    });
-  } // _get
-
-  /**
-   * Wrapper around request-promise-native package for POST requests.
-   *
-   * @param {string} resource - The Refocus API endpoint for the resource being
-   *  created.
-   * @param {object} payload - The payload for the HTTP POST request.
-   * @returns {Promise} A promise which resolves to the resource created.
-   */
-  _post(resource, payload) {
-    const opts = {
-      body: payload,
-      json: true,
-      method: 'POST',
-      resolveWithFullResponse: false,
-      simple: false,
-      uri: `${this.url}/${this.version}/${resource}`,
-    };
-
-    return new Promise((resolve, reject) => {
-      rp(opts)
-      .then(resolve)
-      .catch(reject);
-    });
-  } // _post
-
-  /**
-   * Wrapper around request-promise-native package for POST requests.
-   *
-   * @param {string} resource - The Refocus API endpoint for the resource being
-   *  created.
-   * @param {object} payload - The payload for the HTTP POST request.
-   * @returns {Promise} A promise which resolves to the resource created.
-   */
-  _patch(resource, payload) {
-    const opts = {
-      body: payload,
-      json: true,
-      method: 'PATCH',
-      resolveWithFullResponse: false,
-      simple: false,
-      uri: `${this.url}/${this.version}/${resource}`,
-    };
-
-    return new Promise((resolve, reject) => {
-      rp(opts)
-      .then(resolve)
-      .catch(reject);
-    });
-  } // _patch
-
-  /**
-   * Wrapper around request-promise-native package for POST requests.
-   *
-   * @param {string} resource - The Refocus API endpoint for the resource being
-   *  created.
-   * @param {object} payload - The payload for the HTTP POST request.
-   * @returns {Promise} A promise which resolves to the resource deleted.
-   */
-  _delete(resource) {
-    const opts = {
-      json: true,
-      method: 'DELETE',
-      resolveWithFullResponse: false,
-      simple: false,
-      uri: `${this.url}/${this.version}/${resource}`,
-    };
-
-    return new Promise((resolve, reject) => {
-      rp(opts)
-      .then(resolve)
-      .catch(reject);
-    });
-  } // _delete
-
-  // --------------------------------------------------------------------------
   // Functions for working with Subjects...
   // --------------------------------------------------------------------------
 
@@ -137,7 +143,7 @@ class RefocusClient {
    *  subjects.
    */
   getSubjects() {
-    return this._get('subjects');
+    return _get(this.token, `${this.url}/${this.version}/subjects`);
   } // getSubjects
 
   /**
@@ -149,7 +155,8 @@ class RefocusClient {
    *  subject.
    */
   getSubject(absolutePath) {
-    return this._get(`subjects/${absolutePath}`);
+    return _get(this.token,
+      `${this.url}/${this.version}/subjects/${absolutePath}`);
   } // getSubject
 
   /**
@@ -162,7 +169,9 @@ class RefocusClient {
    *  Subject.
    */
   addChildSubject(parentAbsolutePath, newSubject) {
-    return this._post(`subjects/${parentAbsolutePath}/child`, newSubject);
+    return _post(this.token,
+      `${this.url}/${this.version}/subjects/${parentAbsolutePath}/child`,
+      newSubject);
   } // addChildSubject
 
   /**
@@ -173,7 +182,8 @@ class RefocusClient {
    *  Subject.
    */
   addRootSubject(newSubject) {
-    return this._post('subjects', newSubject);
+    return _post(this.token, `${this.url}/${this.version}/subjects`,
+      newSubject);
   } // addRootSubject
 
   /**
@@ -186,7 +196,8 @@ class RefocusClient {
    *  Subject.
    */
   patchSubject(absolutePath, subject) {
-    return this._patch(`subjects/${absolutePath}`, subject);
+    return _patch(this.token,
+      `${this.url}/${this.version}/subjects/${absolutePath}`, subject);
   } // patchSubject
 
   /**
@@ -197,7 +208,8 @@ class RefocusClient {
    *  Subject.
    */
   deleteSubject(absolutePath) {
-    return this._delete(`subjects/${absolutePath}`);
+    return _delete(this.token,
+      `${this.url}/${this.version}/subjects/${absolutePath}`);
   } // deleteSubject
 
   // --------------------------------------------------------------------------
@@ -211,7 +223,7 @@ class RefocusClient {
    *  Aspects.
    */
   getAspects() {
-    return this._get('aspects');
+    return _get(this.token, `${this.url}/${this.version}/aspects`);
   } // getAspects
 
   /**
@@ -222,7 +234,7 @@ class RefocusClient {
    *  Aspect.
    */
   getAspect(name) {
-    return this._get(`aspects/${name}`);
+    return _get(this.token, `${this.url}/${this.version}/aspects/${name}`);
   } // getAspect
 
   /**
@@ -233,7 +245,7 @@ class RefocusClient {
    *  Aspect.
    */
   addAspect(aspect) {
-    return this._post('aspects', aspect);
+    return _post(this.token, `${this.url}/${this.version}/aspects`, aspect);
   } // addAspect
 
   /**
@@ -246,7 +258,8 @@ class RefocusClient {
    *  Aspect.
    */
   patchAspect(name, aspect) {
-    return this._patch(`aspects/${name}`, aspect);
+    return _patch(this.token, `${this.url}/${this.version}/aspects/${name}`,
+      aspect);
   } // patchAspect
 
   /**
@@ -257,7 +270,7 @@ class RefocusClient {
    *  Aspect.
    */
   deleteAspect(name) {
-    return this._delete(`aspects/${name}`);
+    return _delete(this.token, `${this.url}/${this.version}/aspects/${name}`);
   } // deleteAspect
 
   // --------------------------------------------------------------------------
@@ -271,7 +284,8 @@ class RefocusClient {
    * @returns {Promise} A Bluebird Promise which resolves to the status OK.
    */
   bulkUpsertSamples(arr) {
-    return this._post('samples/upsert/bulk', arr);
+    return _post(this.token, `${this.url}/${this.version}/samples/upsert/bulk`,
+      arr);
   } // bulkUpsertSamples
 } // RefocusClient
 
