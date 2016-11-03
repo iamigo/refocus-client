@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/iamigo/refocus-client/badge.svg)](https://coveralls.io/github/iamigo/refocus-client)
+
 # refocus-client
 
 Interact with the [Refocus](https://github.com/salesforce/refocus) API using `refocus-client` and Bluebird promises.
