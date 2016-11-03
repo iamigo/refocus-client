@@ -287,6 +287,71 @@ class RefocusClient {
     return _post(this.token, `${this.url}/${this.version}/samples/upsert/bulk`,
       arr);
   } // bulkUpsertSamples
+
+  // --------------------------------------------------------------------------
+  // Functions for working with Perspectives...
+  // --------------------------------------------------------------------------
+
+  /**
+   * Retrieve all Perspectives.
+   *
+   * @returns {Promise} A Bluebird promise which resolves to an array of
+   *  Perspectives.
+   */
+  getPerspectives() {
+    return _get(this.token, `${this.url}/${this.version}/perspectives`);
+  } // getPerspectives
+
+  /**
+   * Retrieve the specified Perspective.
+   *
+   * @param {String} name - The name of the Perspective to retrieve.
+   * @returns {Promise} A Bluebird Promise which resolves to the specified
+   *  Perspective.
+   */
+  getPerspective(name) {
+    return _get(this.token,
+      `${this.url}/${this.version}/perspectives/${name}`);
+  } // getPerspective
+
+  /**
+   * Create a new Perspective.
+   *
+   * @param {Object} perspective - The Perspective to create.
+   * @returns {Promise} A Bluebird Promise which resolves to the newly created
+   *  Aspect.
+   */
+  addPerspective(perspective) {
+    return _post(this.token, `${this.url}/${this.version}/perspectives`,
+      perspective);
+  } // addPerspective
+
+  /**
+   * Update a Perspective, modifying only the attributes you provide.
+   *
+   * @param {String} name - The name of the Perspective to patch.
+   * @param {Object} perspective - An object containing the attributes you want
+   *  to update.
+   * @returns {Promise} A Bluebird Promise which resolves to the patched
+   *  Perspective.
+   */
+  patchPerspective(name, perspective) {
+    return _patch(this.token,
+      `${this.url}/${this.version}/perspectives/${name}`, perspective);
+  } // patchPerspective
+
+  /**
+   * Delete the specified Perspective.
+   *
+   * @param {String} name - The name of the Perspective to delete.
+   * @returns {Promise} A Bluebird Promise which resolves to the deleted
+   *  Perspective.
+   */
+  deletePerspective(name) {
+    return _delete(this.token,
+      `${this.url}/${this.version}/perspectives/${name}`);
+  } // deletePerspective
+
 } // RefocusClient
 
 module.exports = RefocusClient;

@@ -45,6 +45,7 @@ rc.addAspect({
 
 ## API
 
-- [Subjects](docs/api/subjects.md)
 - [Aspects](docs/api/aspects.md)
+- [Perspectives](docs/api/perspectives.md)
 - [Samples](docs/api/samples.md)
+- [Subjects](docs/api/subjects.md)
