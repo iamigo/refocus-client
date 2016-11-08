@@ -1,6 +1,7 @@
 /**
  * refocus-client entry point
  */
+const fs = require('fs');
 const req = require('./lib/requestWrapper');
 
 /**
@@ -241,6 +242,62 @@ class RefocusClient {
     return req.delete(this.token,
       `${this.url}/${this.version}/perspectives/${name}`);
   } // deletePerspective
+
+  // --------------------------------------------------------------------------
+  // Functions for working with Lenses...
+  // --------------------------------------------------------------------------
+
+  /**
+   * Retrieve all Lenses.
+   *
+   * @returns {Promise} A Bluebird promise which resolves to an array of
+   *  Lenses.
+   */
+  getLenses() {
+    return req.get(this.token, `${this.url}/${this.version}/lenses`);
+  } // getAspects
+
+  /**
+   * Retrieve the specified Lens.
+   *
+   * @param {String} name - The name of the Lens to retrieve.
+   * @returns {Promise} A Bluebird Promise which resolves to the specified
+   *  Lens.
+   */
+  getLens(name) {
+    return req.get(this.token, `${this.url}/${this.version}/lenses/${name}`);
+  } // getAspect
+
+  /**
+   * Create a new Lens.
+   *
+   * @param {String} pathToLibrary - Path to the library zip file.
+   * @param {Object} lens - Optional object to override what the library
+   *  specifies.
+   * @returns {Promise} A Bluebird Promise which resolves to the newly created
+   *  Lens.
+   */
+  addLens(pathToLibrary, lens) {
+    const lensToPost = lens || {};
+    lensToPost.library = fs.createReadStream(pathToLibrary);
+
+    // Need this to resolve https://github.com/request/request/issues/1761
+    lensToPost.isPublished = new Boolean(lensToPost.isPublished).toString();
+
+    return req.postMultipart(this.token, `${this.url}/${this.version}/lenses`,
+      lensToPost);
+  } // addLens
+
+  /**
+   * Delete the specified Lens.
+   *
+   * @param {String} name - The name of the Lens to delete.
+   * @returns {Promise} A Bluebird Promise which resolves to the deleted
+   *  Lens.
+   */
+  deleteLens(name) {
+    return req.delete(this.token, `${this.url}/${this.version}/lenses/${name}`);
+  } // deleteLens
 
 } // RefocusClient
 
