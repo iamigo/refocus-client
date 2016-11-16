@@ -299,6 +299,69 @@ class RefocusClient {
     return req.delete(this.token, `${this.url}/${this.version}/lenses/${name}`);
   } // deleteLens
 
+  // --------------------------------------------------------------------------
+  // Functions for working with Global Config...
+  // --------------------------------------------------------------------------
+
+  /**
+   * Retrieve all Global Config items.
+   *
+   * @returns {Promise} A Bluebird promise which resolves to an array of
+   *  Global Config items.
+   */
+  getGlobalConfigItems() {
+    return req.get(this.token, `${this.url}/${this.version}/globalconfig`);
+  } // getGlobalConfigItems
+
+  /**
+   * Retrieve the specified Global Config item.
+   *
+   * @param {String} key - The key of the Global Config item to retrieve.
+   * @returns {Promise} A Bluebird Promise which resolves to the specified
+   *  Global Config item.
+   */
+  getGlobalConfigItem(key) {
+    return req.get(this.token,
+      `${this.url}/${this.version}/globalconfig/${key}`);
+  } // getGlobalConfigItem
+
+  /**
+   * Create a new Global Config item.
+   *
+   * @param {Object} globalConfig - The Global Config item to create.
+   * @returns {Promise} A Bluebird Promise which resolves to the newly created
+   *  Global Config item.
+   */
+  addGlobalConfigItem(globalConfig) {
+    return req.post(this.token, `${this.url}/${this.version}/globalconfig`,
+      globalConfig);
+  } // addGlobalConfigItem
+
+  /**
+   * Update the value of a Global Config item.
+   *
+   * @param {String} key - The key of the Global Config item to patch.
+   * @param {Object} value - The new value you want to assign.
+   * @returns {Promise} A Bluebird Promise which resolves to the patched
+   *  Global Config item.
+   */
+  patchGlobalConfigItem(key, value) {
+    return req.patch(this.token,
+      `${this.url}/${this.version}/globalconfig/${key}`, { value });
+  } // patchGlobalConfigItem
+
+  /**
+   * Delete the specified Global Config item.
+   *
+   * @param {String} key - The key of the Global Config item to delete.
+   * @returns {Promise} A Bluebird Promise which resolves to the deleted
+   *  Global Config item.
+   */
+  deleteGlobalConfigItem(key) {
+    return req.delete(this.token,
+      `${this.url}/${this.version}/globalconfig/${key}`);
+  } // deleteGlobalConfigItem
+
 } // RefocusClient
 
 module.exports = RefocusClient;
