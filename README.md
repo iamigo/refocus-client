@@ -46,6 +46,7 @@ rc.addAspect({
 ## API
 
 - [Aspects](docs/api/aspects.md)
+- [GlobalConfig](docs/api/globalconfig.md)
 - [Lenses](docs/api/lenses.md)
 - [Perspectives](docs/api/perspectives.md)
 - [Samples](docs/api/samples.md)
