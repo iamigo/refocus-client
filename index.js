@@ -179,6 +179,17 @@ class RefocusClient {
       arr);
   } // bulkUpsertSamples
 
+  /**
+   * Retrieve the specified sample.
+   *
+   * @param {String} name - The name of the sample to retrieve.
+   * @returns {Promise} a Bluebird Promise which resolves to the specified
+   *  sample.
+   */
+  getSample(name) {
+    return req.get(this.token, `${this.url}/${this.version}/samples/${name}`);
+  } // getSample
+
   // --------------------------------------------------------------------------
   // Functions for working with Perspectives...
   // --------------------------------------------------------------------------
