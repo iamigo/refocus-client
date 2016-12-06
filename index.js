@@ -177,11 +177,9 @@ class RefocusClient {
    */
   bulkUpsertSamples(arr) {
     arr.forEach((sample) => {
-      console.log('before', sample)
       if (typeof sample.value !== 'string') {
         sample.value = sample.value.toString();
       }
-      console.log('after', sample)
     });
     return req.post(this.token, 
       `${this.url}/${this.version}/samples/upsert/bulk`,
