@@ -7,7 +7,8 @@
 ## bulkUpsertSamples
 `bulkUpsertSamples(arr)` => `Promise`
 
-Insert or update an array of Samples asynchronously.
+Insert or update an array of Samples asynchronously. If a sample's "value"
+attribute is not type string, converts it to string.
 
 | Param | Type | Description |
 | --- | --- | --- |

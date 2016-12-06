@@ -7,8 +7,8 @@ describe('samples', () => {
   it('bulkUpsertSamples', (done) => {
     rc.bulkUpsertSamples([
       { name: 'a.b.c|abc', value: '1' },
-      { name: 'a.b.c|def', value: '2' },
-      { name: 'a.b|xyz', value: '3' },
+      { name: 'a.b.c|def', value: true },
+      { name: 'a.b|xyz', value: 3 },
     ])
     .then((res) => done('Uh oh'))
     .catch((err) => {

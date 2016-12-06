@@ -169,13 +169,22 @@ class RefocusClient {
   // --------------------------------------------------------------------------
 
   /**
-   * Insert or update an array of Samples asynchronously.
+   * Insert or update an array of Samples asynchronously. If a sample's "value"
+   * attribute is not type string, converts it to string.
    *
    * @param {Array} arr - The array of Samples to upsert.
    * @returns {Promise} A Bluebird Promise which resolves to the status OK.
    */
   bulkUpsertSamples(arr) {
-    return req.post(this.token, `${this.url}/${this.version}/samples/upsert/bulk`,
+    arr.forEach((sample) => {
+      console.log('before', sample)
+      if (typeof sample.value !== 'string') {
+        sample.value = sample.value.toString();
+      }
+      console.log('after', sample)
+    });
+    return req.post(this.token, 
+      `${this.url}/${this.version}/samples/upsert/bulk`,
       arr);
   } // bulkUpsertSamples
 
