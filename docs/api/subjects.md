@@ -3,6 +3,7 @@
 - [addChildSubject](#addchildsubject)
 - [addRootSubject](#addrootsubject)
 - [deleteSubject](#deletesubject)
+- [getHierarchy](#gethierarchy})
 - [getSubject](#getsubject)
 - [getSubjects](#getsubjects)
 - [patchSubject](#patchsubject)
@@ -43,6 +44,18 @@ Delete the specified Subject.
 | absolutePath | `String` | The absolutePath of the Subject to delete. |
 
 Returns a Bluebird `Promise` which resolves to the deleted Subject.
+
+
+## getHierarchy
+`getHierarchy(absolutePath)` => `Promise`
+
+Retrieve the hierarhcy under the specified Subject.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| absolutePath | `String` | The absolutePath of the root subject of the hierarchy to retrieve. |
+
+Returns a Bluebird Promise which resolves to the hierarchy json.
 
 
 ## getSubject

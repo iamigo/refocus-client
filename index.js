@@ -28,6 +28,19 @@ class RefocusClient {
   // --------------------------------------------------------------------------
 
   /**
+   * Retrieve a subject hierarchy.
+   *
+   * @param {String} absolutePath - The absolutePath of the root subject of the
+   *  hierarhcy to retrieve.
+   * @returns {Promise} a Bluebird Promise which resolves to the hierarchy
+   *  json.
+   */
+  getHierarchy(absolutePath) {
+    return req.get(this.token,
+      `${this.url}/${this.version}/subjects/${absolutePath}/hierarchy`);
+  } // getHierarchy
+
+  /**
    * Retrieve all subjects.
    *
    * @returns {Promise} a Bluebird Promise which resolves to an array of

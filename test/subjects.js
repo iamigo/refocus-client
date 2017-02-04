@@ -4,6 +4,23 @@ const RefocusClient = require('../index');
 describe('subjects', () => {
   const rc = new RefocusClient('test', 'v1', 'abcdefg');
 
+  it('getHierarchy', (done) => {
+    rc.getHierarchy('a.b.c')
+    .then((res) => done('Uh oh'))
+    .catch((err) => {
+      const opts = err.options;
+      expect(opts.headers).to.have.property('Authorization', 'abcdefg');
+      expect(opts.json).to.be.true;
+      expect(opts).to.have.property('method', 'GET');
+      expect(opts.resolveWithFullResponse).to.be.false;
+      expect(opts.simple).to.be.false;
+      expect(opts).to.have.property('uri', 'test/v1/subjects/a.b.c/hierarchy');
+      expect(opts.transform).to.be.undefined;
+      expect(opts.transform2xxOnly).to.be.false;
+      done();
+    });
+  }); // getHierarchy
+
   it('getSubjects', (done) => {
     rc.getSubjects()
     .then((res) => done('Uh oh'))
