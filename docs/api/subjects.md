@@ -1,12 +1,16 @@
 # Subjects API
 
 - [addChildSubject](#addchildsubject)
+- [addChildSubjects](#addchildsubjects)
 - [addRootSubject](#addrootsubject)
+- [addRootSubjects](#addrootsubjects)
 - [deleteSubject](#deletesubject)
+- [deleteSubjects](#deletesubjects)
 - [getHierarchy](#gethierarchy})
 - [getSubject](#getsubject)
 - [getSubjects](#getsubjects)
 - [patchSubject](#patchsubject)
+- [patchSubjects](#patchsubjects)
 
 
 ## addChildSubject
@@ -22,6 +26,20 @@ Create a new Subject as a child of the specified parent Subject.
 Returns a Bluebird `Promise` which resolves to the newly created Subject.
 
 
+## addChildSubjects
+`addChildSubjects(childrenToAdd, pauseMillis)` => `Promise`
+
+For each element in the childrenToAdd array, create a new Subject as a child
+of the specified parent Subject.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| childrenToAdd | `Array` | An array of objects where each object has a "parentAbsolutePath" attribute and a "subject" attribute (the subject being added). |
+| pauseMillis | `Integer` | Milliseconds to pause between each execution. |
+
+Returns a Bluebird Promise which resolves to an array of the new Subjects.
+
+
 ## addRootSubject
 `addRootSubject(newSubject)` => `Promise`
 
@@ -34,6 +52,20 @@ Create a new root Subject.
 Returns a Bluebird `Promise` which resolves to the newly created Subject.
 
 
+## addRootSubjects
+`addRootSubjects(newSubject, pauseMillis)` => `Promise`
+
+Create new root Subjects.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| rootSubjectsToAdd | `Array` | The new Subjects to create. |
+| pauseMillis | `Integer` | Milliseconds to pause between each execution. |
+
+Returns a Bluebird Promise which resolves to an array of the newly created
+Subjects.
+
+
 ## deleteSubject
 `deleteSubject(absolutePath)` => `Promise`
 
@@ -44,6 +76,20 @@ Delete the specified Subject.
 | absolutePath | `String` | The absolutePath of the Subject to delete. |
 
 Returns a Bluebird `Promise` which resolves to the deleted Subject.
+
+
+## deleteSubjects
+`deleteSubjects(toDelete, pauseMillis)` => `Promise`
+
+Deletes multiple subjects sequentially.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| toDelete | `Array` | An array of absolutePaths. |
+| pauseMillis | `Integer` | Milliseconds to pause between each execution. |
+
+Returns a Bluebird `Promise` which resolves to an array of the deleted
+Subjects.
 
 
 ## getHierarchy
@@ -89,3 +135,18 @@ Update a Subject, modifying only the attributes you provide.
 | subject | `Object` | An object containing the attributes you want to update. |
 
 Returns a Bluebird `Promise` which resolves to the patched Subject.
+
+
+## patchSubjects
+`patchSubjects(toPatch, pauseMillis)` => `Promise`
+
+Updates multiple subjects sequentially, modifying only the attributes you
+provide.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| toPatch | `Array` | An array of objects where each object has an "absolutePath" attribute (which subject to patch) and a "subject" attribute (the attributes to patch for that subject). |
+| pauseMillis | `Integer` | Milliseconds to pause between each execution. |
+
+Returns a Bluebird `Promise` which resolves to an array of the patched
+Subjects.

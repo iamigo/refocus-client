@@ -1,10 +1,13 @@
 # Aspects API
 
 - [addAspect](#addaspect)
+- [addAspects](#addaspects)
 - [deleteAspect](#deleteaspect)
+- [deleteAspects](#deleteaspects)
 - [getAspect](#getaspect)
 - [getAspects](#getaspects)
 - [patchAspect](#patchaspect)
+- [patchAspects](#patchaspects)
 
 
 ## addAspect
@@ -19,6 +22,20 @@ Create a new Aspect.
 Returns a Bluebird `Promise` which resolves to the newly created Aspect.
 
 
+## addAspects
+`addAspects(aspects, pauseMillis)` => `Promise`
+
+Create new Aspects.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| aspects | `Array` | The Aspects to create. |
+| pauseMillis | `Integer` | Milliseconds to pause between each execution. |
+
+Returns a Bluebird `Promise` which resolves to an array of the newly created
+Aspects.
+
+
 ## deleteAspect
 `deleteAspect(name)` => `Promise`
 
@@ -29,6 +46,19 @@ Delete the specified Aspect.
 | name | `String` | The name of the aspect to delete. |
 
 Returns`Promise` | A promise which resolves to the deleted aspect.
+
+
+## deleteAspects
+`deleteAspects(toDelete, pauseMillis)` => `Promise`
+
+Delete the specified Aspects.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| toDelete | `Array` | An array of the names of the aspects to delete. |
+| pauseMillis | `Integer` | Milliseconds to pause between each execution. |
+
+Returns`Promise` | A promise which resolves to an array of the deleted aspects.
 
 
 ## getAspect
@@ -62,4 +92,17 @@ Update an Aspect, modifying only the attributes you provide.
 | aspect | `Object` | An object containing the attributes you want to update. |
 
 Returns a Bluebird `Promise` which resolves to the patched Aspect.
+
+
+## patchAspects
+`patchAspects(toPatch)` => `Promise`
+
+Update Aspects, modifying only the attributes you provide.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| toPatch | `String` | An array of objects where each object has a "name" attribute (which aspect to patch) and an "aspect" attribute (the attributes to patch for that aspect). |
+| pauseMillis | `Integer` | Milliseconds to pause between each execution. |
+
+Returns a Bluebird `Promise` which resolves to the array of patched Aspects.
 
