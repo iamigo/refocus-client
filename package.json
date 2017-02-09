@@ -1,6 +1,6 @@
 {
   "name": "refocus-client",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "REST API wrapper for Refocus",
   "main": "index.js",
   "scripts": {
