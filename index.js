@@ -244,7 +244,7 @@ class RefocusClient {
   addAspects(aspects, pauseMillis) {
     const doWithDelay = (i) => delay(pause(pauseMillis))
     .then(() => this.addAspect(i));
-    const arr = rootSubjectsToAdd.map(doWithDelay);
+    const arr = aspects.map(doWithDelay);
     return eachPromise.serial(arr);
   } // addAspects
 
