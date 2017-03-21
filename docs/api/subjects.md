@@ -6,6 +6,7 @@
 - [addRootSubjects](#addrootsubjects)
 - [deleteSubject](#deletesubject)
 - [deleteSubjects](#deletesubjects)
+- [deleteSubjectTag](#deletesubjecttag)
 - [deleteSubjectTags](#deletesubjecttags)
 - [getHierarchy](#gethierarchy})
 - [getSubject](#getsubject)
@@ -91,6 +92,19 @@ Deletes multiple subjects sequentially.
 
 Returns a Bluebird `Promise` which resolves to an array of the deleted
 Subjects.
+
+
+## deleteSubjectTag
+`deleteSubjectTag(absolutePath, tag)` => `Promise`
+
+Deletes the specified tag from the specified subject.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| absolutePath | `String` | The absolutePath of the Subject. |
+| tag | `String` | The tag to delete. |
+
+Returns a Bluebird `Promise` which resolves to the updated Subject.
 
 
 ## deleteSubjectTags
