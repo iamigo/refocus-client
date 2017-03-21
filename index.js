@@ -196,6 +196,18 @@ class RefocusClient {
     return eachPromise.serial(arr);
   } // deleteSubjects
 
+  /**
+   * Deletes all tags from the specified subject.
+   *
+   * @param {String} absolutePath - The absolutePath of the Subject.
+   * @returns {Promise} A Bluebird Promise which resolves to the updated
+   *  Subject.
+   */
+  deleteSubjectTags(absolutePath) {
+    return req.delete(this.token,
+      `${this.url}/${this.version}/subjects/${absolutePath}/tags`);
+  } // deleteSubjectTags
+
   // --------------------------------------------------------------------------
   // Functions for working with Aspects...
   // --------------------------------------------------------------------------
