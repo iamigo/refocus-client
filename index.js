@@ -210,25 +210,6 @@ class RefocusClient {
   } // deleteSubjectTag
 
   /**
-   * Deletes multiple subject tags sequentially.
-   *
-   * @param {String} absolutePath - The absolutePath of the Subject.
-   * @param {Array} toDelete - An array of tags.
-   * @param {Integer} pauseMillis - Milliseconds to pause between each
-   *  execution.
-   * @returns {Promise} A Bluebird Promise which resolves to the updated
-   *  Subject.
-   */
-  deleteMultipleSubjectTags(absolutePath, toDelete, pauseMillis) {
-    console.log('deleteMultipleSubjectTags(%s, %s)', absolutePath, toDelete);
-    const doWithDelay = (i) => delay(pause(pauseMillis))
-    .then(() => this.deleteSubjectTag(absolutePath, i));
-    const arr = toDelete.map(doWithDelay);
-    return eachPromise.serial(arr)
-    .then((res) => console.log('deleteMultipleSubjectTags', res));
-  } // deleteMultipleSubjectTags
-
-  /**
    * Deletes all tags from the specified subject.
    *
    * @param {String} absolutePath - The absolutePath of the Subject.
