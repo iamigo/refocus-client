@@ -220,11 +220,12 @@ class RefocusClient {
    *  Subject.
    */
   deleteMultipleSubjectTags(absolutePath, toDelete, pauseMillis) {
+    console.log('deleteMultipleSubjectTags(%s, %s)', absolutePath, toDelete);
     const doWithDelay = (i) => delay(pause(pauseMillis))
     .then(() => this.deleteSubjectTag(absolutePath, i));
     const arr = toDelete.map(doWithDelay);
     return eachPromise.serial(arr)
-    .then((res) => res.slice(-1)[0]);
+    .then((res) => console.log('deleteMultipleSubjectTags', res));
   } // deleteMultipleSubjectTags
 
   /**
