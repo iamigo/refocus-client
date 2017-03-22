@@ -224,7 +224,7 @@ class RefocusClient {
     .then(() => this.deleteSubjectTag(absolutePath, i));
     const arr = toDelete.map(doWithDelay);
     return eachPromise.serial(arr)
-    .then((res) => res.slice(-1));
+    .then((res) => res.slice(-1)[0]);
   } // deleteMultipleSubjectTags
 
   /**
