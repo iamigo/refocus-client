@@ -1,10 +1,13 @@
 # Perspectives API
 
 - [addPerspective](#addperspective)
+- [addPerspectives](#addperspectives)
 - [deletePerspective](#deleteperspective)
+- [deletePerspectives](#deleteperspectives)
 - [getPerspective](#getperspective)
 - [getPerspectives](#getperspectives)
 - [patchPerspective](#patchperspective)
+- [patchPerspectives](#patchperspectives)
 
 
 ## addPerspective
@@ -19,6 +22,19 @@ Create a new Perspective.
 Returns a Bluebird `Promise` which resolves to the newly created Perspective.
 
 
+## addPerspectives
+`addPerspectives(perspectives)` => `Promise`
+
+Create new Perspectives.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| perspectives | `Array` | The Perspectives to create. |
+
+Returns a Bluebird `Promise` which resolves to an array of the newly created
+Perspectives.
+
+
 ## deletePerspective
 `deletePerspective(name)` => `Promise`
 
@@ -29,6 +45,19 @@ Delete the specified Perspective.
 | name | `String` | The name of the perspective to delete. |
 
 Returns`Promise` | A promise which resolves to the deleted perspective.
+
+
+## deletePerspectives
+`deletePerspectives(toDelete)` => `Promise`
+
+Delete the specified Perspectives.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| toDelete | `Array` | An array of the names of the perspectives to delete. |
+
+Returns`Promise` | A promise which resolves to an array of the deleted
+perspectives.
 
 
 ## getPerspective
@@ -63,3 +92,15 @@ Update a Perspective, modifying only the attributes you provide.
 
 Returns a Bluebird `Promise` which resolves to the patched Perspective.
 
+
+## patchPerspectives
+`patchPerspectives(toPatch)` => `Promise`
+
+Update Perspectives, modifying only the attributes you provide.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| toPatch | `String` | An array of objects where each object has a "name" attribute (which perspective to patch) and a "perspective" attribute (the attributes to patch for that perspective). |
+
+Returns a Bluebird `Promise` which resolves to the array of patched
+Perspectives.

@@ -367,6 +367,17 @@ class RefocusClient {
   } // addPerspective
 
   /**
+   * Create new Perspectives.
+   *
+   * @param {Array} perspectives - The Perspectives to create.
+   * @returns {Promise} A Bluebird Promise which resolves to the newly created
+   *  Perspectives.
+   */
+  addPerspectives(perspectives) {
+    return mapSeries(perspectives, this.addPerspective, this);
+  } // addPerspectives
+
+  /**
    * Update a Perspective, modifying only the attributes you provide.
    *
    * @param {String} name - The name of the Perspective to patch.
@@ -381,6 +392,22 @@ class RefocusClient {
   } // patchPerspective
 
   /**
+   * Updates multiple Perspectives sequentially, modifying only the attributes
+   * you provide.
+   *
+   * @param {Array} toPatch - An array of objects where each object has a
+   *  "name" attribute (which perspective to patch) and a "perspective"
+   * attribute (the attributes to patch for that perspective).
+   * @returns {Promise} A Bluebird Promise which resolves to an array of
+   *  the patched Perspectives.
+   */
+  patchPerspectives(toPatch) {
+    return mapSeries(toPatch,
+      (i) => this.patchPerspective(i.name, i.perspective),
+      this);   
+  } // patchAspects
+
+  /**
    * Delete the specified Perspective.
    *
    * @param {String} name - The name of the Perspective to delete.
@@ -391,6 +418,18 @@ class RefocusClient {
     return req.delete(this.token,
       `${this.url}/${this.version}/perspectives/${name}`);
   } // deletePerspective
+
+  /**
+   * Deletes multiple Perspectives sequentially.
+   *
+   * @param {Array} toDelete - An array of names.
+   * @returns {Promise} A Bluebird Promise which resolves to an array of
+   *  the deleted Perspectives.
+   */
+  deletePerspectives(toDelete) {
+    return mapSeries(toDelete, this.deletePerspective, this);
+  } // deleteAspects
+
 
   // --------------------------------------------------------------------------
   // Functions for working with Lenses...
