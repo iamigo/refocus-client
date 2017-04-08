@@ -3,16 +3,7 @@
  */
 const fs = require('fs');
 const req = require('./lib/requestWrapper');
-const delay = require('delay');
-const eachPromise = require('each-promise');
-
-function pause(ms) {
-  if (!ms || ms < 1) {
-    return 1;
-  }
-
-  return ms;
-}
+const mapSeries = require('promise-map-series');
 
 /**
  * RefocusClient wraps some basic Refocus API functionality.
@@ -95,16 +86,13 @@ class RefocusClient {
    * @param {Array} childrenToAdd - An array of objects where each object has
    *  a "parentAbsolutePath" attribute and a "subject" attribute (the
    *  subject being added).
-   * @param {Integer} pauseMillis - Milliseconds to pause between each
-   *  execution.
    * @returns {Promise} A Bluebird Promise which resolves to an array of
    *  the new Subjects.
    */
-  addChildSubjects(childrenToAdd, pauseMillis) {
-    const doWithDelay = (i) => delay(pause(pauseMillis))
-      .then(() => this.addChildSubject(i.parentAbsolutePath, i.subject));
-    const arr = childrenToAdd.map(doWithDelay);
-    return eachPromise.serial(arr);
+  addChildSubjects(childrenToAdd) {    
+    return mapSeries(childrenToAdd,
+      (i) => this.addChildSubject(i.parentAbsolutePath, i.subject),
+      this);
   } // addChildSubjects
 
   /**
@@ -123,16 +111,11 @@ class RefocusClient {
    * Create new root Subjects.
    *
    * @param {Array} rootSubjectsToAdd - The new Subjects to create.
-   * @param {Integer} pauseMillis - Milliseconds to pause between each
-   *  execution.
    * @returns {Promise} A Bluebird Promise which resolves to an array of the
    *  newly created Subjects.
    */
-  addRootSubjects(rootSubjectsToAdd, pauseMillis) {
-    const doWithDelay = (i) => delay(pause(pauseMillis))
-    .then(() => this.addRootSubject(i));
-    const arr = rootSubjectsToAdd.map(doWithDelay);
-    return eachPromise.serial(arr);
+  addRootSubjects(rootSubjectsToAdd) {
+    return mapSeries(rootSubjectsToAdd, this.addRootSubject, this);
   } // addRootSubjects
 
   /**
@@ -156,16 +139,13 @@ class RefocusClient {
    * @param {Array} toPatch - An array of objects where each object has an
    *  "absolutePath" attribute (which subject to patch) and a "subject"
    *  attribute (the attributes to patch for that subject).
-   * @param {Integer} pauseMillis - Milliseconds to pause between each
-   *  execution.
    * @returns {Promise} A Bluebird Promise which resolves to an array of
    *  the patched Subjects.
    */
-  patchSubjects(toPatch, pauseMillis) {
-    const doWithDelay = (i) => delay(pause(pauseMillis))
-      .then(() => this.patchSubject(i.absolutePath, i.subject));
-    const arr = toPatch.map(doWithDelay);
-    return eachPromise.serial(arr);
+  patchSubjects(toPatch) {
+    return mapSeries(toPatch,
+      (i) => this.patchSubject(i.absolutePath, i.subject),
+      this);
   } // patchSubjects
 
   /**
@@ -184,16 +164,11 @@ class RefocusClient {
    * Deletes multiple subjects sequentially.
    *
    * @param {Array} toDelete - An array of absolutePaths.
-   * @param {Integer} pauseMillis - Milliseconds to pause between each
-   *  execution.
    * @returns {Promise} A Bluebird Promise which resolves to an array of
    *  the deleted Subjects.
    */
-  deleteSubjects(toDelete, pauseMillis) {
-    const doWithDelay = (i) => delay(pause(pauseMillis))
-    .then(() => this.deleteSubject(i));
-    const arr = toDelete.map(doWithDelay);
-    return eachPromise.serial(arr);
+  deleteSubjects(toDelete) {
+    return mapSeries(toDelete, this.deleteSubject, this);
   } // deleteSubjects
 
   /**
@@ -261,16 +236,11 @@ class RefocusClient {
    * Create new Aspects.
    *
    * @param {Array} aspects - The aspects to create.
-   * @param {Integer} pauseMillis - Milliseconds to pause between each
-   *  execution.
    * @returns {Promise} A Bluebird Promise which resolves to an array of the
    * the newly created Aspects.
    */
-  addAspects(aspects, pauseMillis) {
-    const doWithDelay = (i) => delay(pause(pauseMillis))
-    .then(() => this.addAspect(i));
-    const arr = aspects.map(doWithDelay);
-    return eachPromise.serial(arr);
+  addAspects(aspects) {
+    return mapSeries(aspects, this.addAspect, this);
   } // addAspects
 
   /**
@@ -294,16 +264,13 @@ class RefocusClient {
    * @param {Array} toPatch - An array of objects where each object has a
    *  "name" attribute (which aspect to patch) and an "aspect" attribute (the
    *  attributes to patch for that aspect).
-   * @param {Integer} pauseMillis - Milliseconds to pause between each
-   *  execution.
    * @returns {Promise} A Bluebird Promise which resolves to an array of
    *  the patched Aspects.
    */
-  patchAspects(toPatch, pauseMillis) {
-    const doWithDelay = (i) => delay(pause(pauseMillis))
-      .then(() => this.patchAspect(i.name, i.aspect));
-    const arr = toPatch.map(doWithDelay);
-    return eachPromise.serial(arr);
+  patchAspects(toPatch) {
+    return mapSeries(toPatch,
+      (i) => this.patchAspect(i.name, i.aspect),
+      this);   
   } // patchAspects
 
   /**
@@ -321,16 +288,11 @@ class RefocusClient {
    * Deletes multiple Aspects sequentially.
    *
    * @param {Array} toDelete - An array of names.
-   * @param {Integer} pauseMillis - Milliseconds to pause between each
-   *  execution.
    * @returns {Promise} A Bluebird Promise which resolves to an array of
    *  the deleted Aspects.
    */
-  deleteAspects(toDelete, pauseMillis) {
-    const doWithDelay = (i) => delay(pause(pauseMillis))
-    .then(() => this.deleteAspect(i));
-    const arr = toDelete.map(doWithDelay);
-    return eachPromise.serial(arr);
+  deleteAspects(toDelete) {
+    return mapSeries(toDelete, this.deleteAspect, this);
   } // deleteAspects
 
   // --------------------------------------------------------------------------

@@ -23,14 +23,13 @@ Returns a Bluebird `Promise` which resolves to the newly created Aspect.
 
 
 ## addAspects
-`addAspects(aspects, pauseMillis)` => `Promise`
+`addAspects(aspects)` => `Promise`
 
 Create new Aspects.
 
 | Param | Type | Description |
 | --- | --- | --- |
 | aspects | `Array` | The Aspects to create. |
-| pauseMillis | `Integer` | Milliseconds to pause between each execution. |
 
 Returns a Bluebird `Promise` which resolves to an array of the newly created
 Aspects.
@@ -49,14 +48,13 @@ Returns`Promise` | A promise which resolves to the deleted aspect.
 
 
 ## deleteAspects
-`deleteAspects(toDelete, pauseMillis)` => `Promise`
+`deleteAspects(toDelete)` => `Promise`
 
 Delete the specified Aspects.
 
 | Param | Type | Description |
 | --- | --- | --- |
 | toDelete | `Array` | An array of the names of the aspects to delete. |
-| pauseMillis | `Integer` | Milliseconds to pause between each execution. |
 
 Returns`Promise` | A promise which resolves to an array of the deleted aspects.
 
@@ -102,7 +100,6 @@ Update Aspects, modifying only the attributes you provide.
 | Param | Type | Description |
 | --- | --- | --- |
 | toPatch | `String` | An array of objects where each object has a "name" attribute (which aspect to patch) and an "aspect" attribute (the attributes to patch for that aspect). |
-| pauseMillis | `Integer` | Milliseconds to pause between each execution. |
 
 Returns a Bluebird `Promise` which resolves to the array of patched Aspects.
 
