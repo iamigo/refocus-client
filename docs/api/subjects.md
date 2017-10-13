@@ -143,7 +143,11 @@ Returns a Bluebird `Promise` which resolves to the specified Subject.
 ## getSubjects
 `getSubjects()` => `Promise`
 
-Retrieve all Subjects.
+Retrieve all Subjects, optional query params for filter/sort/limit/offset.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| queryParams | `String` | Query params (no leading "?"). |
 
 Returns a Bluebird `Promise` which resolves to an array of Subjects.
 

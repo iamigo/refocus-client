@@ -42,13 +42,18 @@ class RefocusClient {
   } // getHierarchy
 
   /**
-   * Retrieve all subjects.
+   * Retrieve all subjects, optional query params for filter/sort/limit/offset.
    *
+   * @param {String} queryParams - Query params (no leading "?").
    * @returns {Promise} a Bluebird Promise which resolves to an array of
    *  subjects.
    */
-  getSubjects() {
-    return req.get(this.token, `${this.url}/${this.version}/subjects`);
+  getSubjects(queryParams) {
+    let u = `${this.url}/${this.version}/subjects`;
+    if (queryParams) {
+      u += `?${queryParams}`;
+    }
+    return req.get(this.token, u);
   } // getSubjects
 
   /**
@@ -89,7 +94,7 @@ class RefocusClient {
    * @returns {Promise} A Bluebird Promise which resolves to an array of
    *  the new Subjects.
    */
-  addChildSubjects(childrenToAdd) {    
+  addChildSubjects(childrenToAdd) {
     return mapSeries(childrenToAdd,
       (i) => this.addChildSubject(i.parentAbsolutePath, i.subject),
       this);
@@ -270,7 +275,7 @@ class RefocusClient {
   patchAspects(toPatch) {
     return mapSeries(toPatch,
       (i) => this.patchAspect(i.name, i.aspect),
-      this);   
+      this);
   } // patchAspects
 
   /**
@@ -312,7 +317,7 @@ class RefocusClient {
         sample.value = sample.value.toString();
       }
     });
-    return req.post(this.token, 
+    return req.post(this.token,
       `${this.url}/${this.version}/samples/upsert/bulk`,
       arr);
   } // bulkUpsertSamples
@@ -404,7 +409,7 @@ class RefocusClient {
   patchPerspectives(toPatch) {
     return mapSeries(toPatch,
       (i) => this.patchPerspective(i.name, i.perspective),
-      this);   
+      this);
   } // patchAspects
 
   /**
