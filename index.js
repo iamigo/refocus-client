@@ -4,6 +4,10 @@
 const fs = require('fs');
 const req = require('./lib/requestWrapper');
 const mapSeries = require('promise-map-series');
+const globalTunnel = require('global-tunnel'); 
+
+/* Set up proxy using the "http_proxy" environment variable. */
+globalTunnel.initialize();
 
 /**
  * RefocusClient wraps some basic Refocus API functionality.

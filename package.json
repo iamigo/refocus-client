@@ -30,6 +30,7 @@
     "mocha-lcov-reporter": "^1.2.0"
   },
   "dependencies": {
+    "global-tunnel": "^1.2.0",
     "promise-map-series": "^0.2.3",
     "request": "^2.76.0",
     "request-promise": "^4.1.1"

@@ -43,6 +43,10 @@ rc.addAspect({
 });
 ```
 
+## Proxy
+
+If you need to specify a proxy for communication to Refocus, set environment variable "http_proxy".
+
 ## API
 
 - [Aspects](docs/api/aspects.md)
