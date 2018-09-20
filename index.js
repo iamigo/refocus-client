@@ -61,16 +61,21 @@ class RefocusClient {
   } // getSubjects
 
   /**
-   * Retrieve the specified subject.
+   * Retrieve the specified subject. Limit the fields returned by providing an
+   * optional array of field names.
    *
    * @param {String} absolutePath - The absolutePath of the subject to
    *  retrieve.
+   * @param {Array} fields - Optional array of field names to return.
    * @returns {Promise} a Bluebird Promise which resolves to the specified
    *  subject.
    */
-  getSubject(absolutePath) {
-    return req.get(this.token,
-      `${this.url}/${this.version}/subjects/${absolutePath}`);
+  getSubject(absolutePath, fields = []) {
+    let u = `${this.url}/${this.version}/subjects/${absolutePath}`;
+    if (Array.isArray(fields) && fields.length > 0) {
+      u += `?fields=${fields.join()}`;
+    }
+    return req.get(this.token, u);
   } // getSubject
 
   /**

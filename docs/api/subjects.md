@@ -129,13 +129,14 @@ Returns a Bluebird Promise which resolves to the hierarchy json.
 
 
 ## getSubject
-`getSubject(absolutePath)` => `Promise`
+`getSubject(absolutePath, fields)` => `Promise`
 
-Retrieve the specified Subject.
+Retrieve the specified Subject. Limit the fields returned by providing an optional array of field names.
 
 | Param | Type | Description |
 | --- | --- | --- |
 | absolutePath | `String` | The absolutePath of the Subject to retrieve. |
+| fields | `Array` | Optional array of field names to return. |
 
 Returns a Bluebird `Promise` which resolves to the specified Subject.
 
